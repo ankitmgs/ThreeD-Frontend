@@ -41,54 +41,66 @@ const ViewModel = () => {
           }}
         >
           <div className="container">
-            <div className="row " style={{ padding: "3rem" }}>
+            <div className="row view-top">
               {/* <div className="col-md-12"> */}
-              <div className="card bg-">
-                <div className="card-body">{showModel(modelData.data)}</div>
+              <div className="card bg p-0">
+                <div className="card-body view-card-body">
+                  {showModel(modelData.data)}
+                </div>
                 {/* </div> */}
 
                 <div style={{ padding: "2rem", marginTop: "-3%" }}>
                   <h2
                     className="card-title"
-                    style={{ fontWeight: "bold", fontSize: "50px" }}
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "2rem",
+                      color: "#00bcd4",
+                    }}
                   >
-                    {" "}
                     {modelData.title}
                   </h2>
                   <h5>3D Model</h5>
-                  <p className="card-text" >
-                    <b>Created At:</b>{modelData.created}
+                  <p className="card-text d-flex">
+                    <b>Created At:</b>
+                    <div style={{ color: "#009688" }}>{modelData.created}</div>
                   </p>
+                  <div className="d-flex">
                   <h5
                     style={{
-                      float: "right",
-                      marginTop: "-7%",
                       fontWeight: "bold",
                     }}
                     className="card-text"
                   >
-                    Uploaded BY : {modelData.uplodedby}
+                    Uploaded BY :
                   </h5>
-                </div>
+                    <div style={{ color: "#009688" }}>
+                      {modelData.uplodedby}
+                    </div>
+                  </div>
                 <div
                   style={{
-                    paddingLeft: "2rem",
                     fontSize: "20px",
-                    marginTop: "-2%",
                   }}
                 >
-                  <p className="card-text">
-                    <b>Description:</b> {modelData.description}
+                  <p className="card-text d-flex">
+                    <b>Description:</b>{" "}
+                    <div style={{ color: "#009688" }}>
+                      {modelData.description}
+                    </div>
                   </p>
                   <hr />
                 </div>
-                <Link
-                  style={{ background: "#64a5ad" }}
-                  className="btn "
-                  to="/listmodal"
-                >
-                  Go Back
-                </Link>
+                </div>
+                <center>
+                  <Link
+                    style={{ background: "#64a5ad", width: "90%" }}
+                    className="btn "
+                    to="/listmodal"
+                  >
+                    Go Back
+                  </Link>
+                </center>
                 <hr />
               </div>
             </div>
@@ -110,7 +122,7 @@ const ViewModel = () => {
   const showModel = (modelname) => {
     console.log(url + "/extracted/" + modelname + "/scene.gltf");
     return (
-      <Canvas style={{ height: "100vh" }}>
+      <Canvas>
         <Suspense fallback={null}>
           <Model path={url + "/extracted/" + modelname + "/scene.gltf"} />
           <OrbitControls />
@@ -120,7 +132,17 @@ const ViewModel = () => {
     );
   };
 
-  return <div>{loading? <div><CircularProgress size="15rem" /></div>: displayModelData()}</div>;
+  return (
+    <div>
+      {loading ? (
+        <div>
+          <CircularProgress size="15rem" />
+        </div>
+      ) : (
+        displayModelData()
+      )}
+    </div>
+  );
 };
 
 export default ViewModel;

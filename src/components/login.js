@@ -5,11 +5,13 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import { AuthContext } from "../Context/userAuthContext";
+import { CircularProgress } from "@mui/material";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [isloading, setIsloading] = useState(false);
 
-  const { isAuthenticated, handleLogin, handleLogout,setIsAuthenticated } =
+  const { isAuthenticated, handleLogin, handleLogout, setIsAuthenticated } =
     useContext(AuthContext);
 
   const url = app_config.api_url;
@@ -19,6 +21,7 @@ const Login = () => {
   };
 
   const LoginSubmit = (formdata) => {
+    setIsloading(true);
     console.log(formdata);
     const reqOpt = {
       method: "POST",
@@ -40,7 +43,8 @@ const Login = () => {
           res.json().then((data) => {
             navigate("/addmodal");
             sessionStorage.setItem("user", JSON.stringify(data));
-            setIsAuthenticated(true)
+            setIsAuthenticated(true);
+            setIsloading(false);
           });
         } else if (res.status === 300) {
           Swal.fire({
@@ -135,7 +139,10 @@ const Login = () => {
                           type="submit"
                           className="btn btn-primary btn-block mb-4"
                         >
-                          Sign up
+                          {isloading? <CircularProgress
+                                size="1.2rem"
+                                style={{ color: "white" }}
+                              /> : "Login"}
                         </button>
                       </form>
                     )}

@@ -41,3 +41,23 @@
   -moz-box-shadow: 37px 40px 60px -5px rgba(0,0,0,0.27);
   box-shadow: 37px 40px 60px -5px rgba(0,0,0,0.27);
 }
+
+.view-top{
+  padding: 2rem;
+}
+
+@media only screen and (max-width: 525px) {
+  .view-top{
+    padding: 0.5rem;
+  }
+}
+.view-card-body{
+  padding: 2rem;
+  height: 100vh;
+}
+@media only screen and (max-width: 425px) {
+  .view-card-body{
+    padding: 0.5rem;
+    height: 80vh;
+  }
+}
